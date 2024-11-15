@@ -1,0 +1,6 @@
+@SickLeaveAPI_HostAddress = http://localhost:5078
+
+GET {{SickLeaveAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
