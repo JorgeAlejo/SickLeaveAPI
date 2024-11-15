@@ -20,6 +20,7 @@ builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vet API", Version = "v1" });
 });
 builder.Services.AddControllers();
+builder.Services.AddScoped<UserAdminService>();
 
 var app = builder.Build();
 

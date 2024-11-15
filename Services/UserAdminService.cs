@@ -40,5 +40,20 @@ public class UserAdminService{
         return null;
     }
 
-    // TODO: Update admin 
+    //Update admin 
+    public async Task<bool> UpdateUserAdmin(long cedula, UserAdmin userAdmin){
+        var existingAdmin = await _context.UserAdmins.FirstOrDefaultAsync(u => u.Cedula == cedula);
+        if(existingAdmin == null) return false;
+        existingAdmin.PrimerNombre = userAdmin.PrimerNombre ?? existingAdmin.PrimerNombre;
+        existingAdmin.SegundoNombre = userAdmin.SegundoNombre; // Puede ser null
+        existingAdmin.PrimerApellido = userAdmin.PrimerApellido ?? existingAdmin.PrimerApellido;
+        existingAdmin.SegundoApellido = userAdmin.SegundoApellido; // Puede ser null
+        existingAdmin.Email = userAdmin.Email ?? existingAdmin.Email;
+        // Actualizar contraseña (si se envió)
+        if(!string.IsNullOrWhiteSpace(userAdmin.Password)){
+            existingAdmin.Password = BCrypt.Net.BCrypt.HashPassword(userAdmin.Password);
+        }
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }
