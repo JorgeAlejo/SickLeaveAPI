@@ -45,11 +45,4 @@ public class UserAdminController : ControllerBase{
 
         return Ok(new { message = "Admin updated successfully" });
     }
-
-     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] UserAdmin userAdmin){
-        var login = await _userAdminService.AdminLogin(userAdmin.Cedula, userAdmin.Password);
-        if (login == null) return Unauthorized("Correo o contraseña incorrectos.");
-        return Ok(login.Cedula);
-    }
 }

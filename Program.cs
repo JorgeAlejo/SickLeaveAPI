@@ -21,6 +21,8 @@ builder.Services.AddSwaggerGen(c => {
 });
 builder.Services.AddControllers();
 builder.Services.AddScoped<UserAdminService>();
+builder.Services.AddScoped<AuthenticationService>();
+builder.Services.AddScoped<UserColaboradorService>();
 
 var app = builder.Build();
 

@@ -30,16 +30,6 @@ public class UserAdminService{
     }
     */
 
-    //Login de administrador
-    public async Task<UserAdmin?> AdminLogin(long cedula, string password){
-        var userAdmin = await _context.UserAdmins.FirstOrDefaultAsync(u => u.Cedula == cedula);
-        if(userAdmin == null) return null;
-
-        //verify password
-        if(BCrypt.Net.BCrypt.Verify(password, userAdmin.Password)) return userAdmin;
-        return null;
-    }
-
     //Update admin 
     public async Task<bool> UpdateUserAdmin(long cedula, UserAdmin userAdmin){
         var existingAdmin = await _context.UserAdmins.FirstOrDefaultAsync(u => u.Cedula == cedula);
