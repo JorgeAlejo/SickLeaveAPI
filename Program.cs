@@ -23,6 +23,9 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<UserAdminService>();
 builder.Services.AddScoped<AuthenticationService>();
 builder.Services.AddScoped<UserColaboradorService>();
+builder.Services.AddScoped<UserAbogadoService>();
+builder.Services.AddScoped<UserRHService>();
+builder.Services.AddScoped<UserTesoreroService>();
 
 var app = builder.Build();
 

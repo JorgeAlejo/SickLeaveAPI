@@ -21,6 +21,9 @@ public class AuthenticationService{
             
             case UserRole.Abogado:
                 return await AuthenticateAbogado(cedula, password);
+            
+            case UserRole.RH:
+                return await AuthenticateRH(cedula, password);
 
             default:
                 return new AuthenticationResult{
@@ -101,6 +104,24 @@ public class AuthenticationService{
             Message = "Ingreso existos."
         };
     }
+
+    // Autenticación de Recursos humanos
+    private async Task<AuthenticationResult> AuthenticateRH(long cedula, string password){
+        var rh = await _context.UserRHs.FirstOrDefaultAsync(c => c.Cedula == cedula && c.IsActive);
+        if (rh == null || !BCrypt.Net.BCrypt.Verify(password, rh.Password)){
+            return new AuthenticationResult{
+                IsAuthenticated = false,
+                Message = "Cedula o contaseña erronea."
+            };
+        }
+
+        return new AuthenticationResult{
+            IsAuthenticated = true,
+            UserId = rh.Cedula,
+            Role = UserRole.RH,
+            Message = "Ingreso existos."
+        };
+    }
 }
 
 // Modelo para los resultados de autenticación
@@ -116,5 +137,6 @@ public enum UserRole{
     Admin,
     Colaborador,
     Tesorero,
-    Abogado
+    Abogado,
+    RH
 }

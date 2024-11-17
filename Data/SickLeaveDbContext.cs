@@ -6,4 +6,5 @@ public class SickLeaveDbContext: DbContext{
     public required DbSet<UserColaborador> UserColaboradors { get; set; }
     public required DbSet<UserTesorero> UserTesoreros { get; set; }
     public required DbSet<UserAbogado> UserAbogados { get; set; }
+    public required DbSet<UserRH> UserRHs { get; set; }
 }
