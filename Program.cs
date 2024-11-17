@@ -26,6 +26,7 @@ builder.Services.AddScoped<UserColaboradorService>();
 builder.Services.AddScoped<UserAbogadoService>();
 builder.Services.AddScoped<UserRHService>();
 builder.Services.AddScoped<UserTesoreroService>();
+builder.Services.AddScoped<EPS_ARLService>();
 
 var app = builder.Build();
 
