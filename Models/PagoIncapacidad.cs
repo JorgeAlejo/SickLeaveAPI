@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class PagoIncapacidad
-{
+public class PagoIncapacidad{
     [Key]
     public Guid IdPago { get; set; } = Guid.NewGuid(); // Identificador único del pago
 

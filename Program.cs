@@ -29,6 +29,7 @@ builder.Services.AddScoped<UserTesoreroService>();
 builder.Services.AddScoped<EPS_ARLService>();
 builder.Services.AddScoped<IncapacidadService>();
 builder.Services.AddScoped<PagoIncapacidadService>();
+builder.Services.AddScoped<CobroJuridicoService>();
 
 var app = builder.Build();
 
