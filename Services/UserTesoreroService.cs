@@ -1,4 +1,3 @@
-// TODO: crear controlador y poner en db
 using Microsoft.EntityFrameworkCore;
 
 public class UserTesoreroService
