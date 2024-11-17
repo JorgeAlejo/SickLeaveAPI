@@ -15,6 +15,9 @@ public class AuthenticationService{
 
             case UserRole.Colaborador:
                 return await AuthenticateColaborador(cedula, password);
+            
+            case UserRole.Tesorero:
+                return await AuthenticateTesorero(cedula, password);
 
             default:
                 return new AuthenticationResult{
@@ -59,6 +62,24 @@ public class AuthenticationService{
             Message = "Ingreso existos."
         };
     }
+
+    // Autenticación de tesoreros
+    private async Task<AuthenticationResult> AuthenticateTesorero(long cedula, string password){
+        var tesorero = await _context.UserTesoreros.FirstOrDefaultAsync(c => c.Cedula == cedula && c.IsActive);
+        if (tesorero == null || !BCrypt.Net.BCrypt.Verify(password, tesorero.Password)){
+            return new AuthenticationResult{
+                IsAuthenticated = false,
+                Message = "Cedula o contaseña erronea."
+            };
+        }
+
+        return new AuthenticationResult{
+            IsAuthenticated = true,
+            UserId = tesorero.Cedula,
+            Role = UserRole.Tesorero,
+            Message = "Ingreso existos."
+        };
+    }
 }
 
 // Modelo para los resultados de autenticación
@@ -72,5 +93,6 @@ public class AuthenticationResult{
 // Enum para roles de usuario
 public enum UserRole{
     Admin,
-    Colaborador
+    Colaborador,
+    Tesorero
 }
