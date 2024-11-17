@@ -8,4 +8,5 @@ public class SickLeaveDbContext: DbContext{
     public required DbSet<UserAbogado> UserAbogados { get; set; }
     public required DbSet<UserRH> UserRHs { get; set; }
     public required DbSet<EPS_ARL> EPS_ARLs { get; set; }
+    public required DbSet<Incapacidad> Incapacidades { get; set; }
 }
