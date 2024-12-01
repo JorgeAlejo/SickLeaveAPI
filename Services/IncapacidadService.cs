@@ -38,6 +38,22 @@ public class IncapacidadService{
                                            .FirstOrDefaultAsync(i => i.IDIncapacidad == id && i.IsActive);
     }
 
+    // Obtener una incapacidad por CedulaColaborador
+    public async Task<Incapacidad?> GetIncapacidadByCedulaCoraborador(long cedula){
+        return await _context.Incapacidades.Include(i => i.CedulaColaborador)
+                                           .Include(i => i.IdEpsArl)
+                                           .Include(i => i.CedulaRH)
+                                           .FirstOrDefaultAsync(i => i.CedulaColaborador== cedula && i.IsActive);
+    }
+
+    // Obtener una incapacidad por CedulaColaborador
+    public async Task<Incapacidad?> GetIncapacidadByCedulaRH(long cedula){
+        return await _context.Incapacidades.Include(i => i.CedulaColaborador)
+                                           .Include(i => i.IdEpsArl)
+                                           .Include(i => i.CedulaRH)
+                                           .FirstOrDefaultAsync(i => i.CedulaRH== cedula && i.IsActive);
+    }
+
     // Actualizar una incapacidad
     public async Task<bool> UpdateIncapacidad(Guid id, Incapacidad updatedIncapacidad){
         var existingIncapacidad = await _context.Incapacidades.FirstOrDefaultAsync(i => i.IDIncapacidad == id && i.IsActive);

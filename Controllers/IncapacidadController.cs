@@ -36,6 +36,24 @@ public class IncapacidadController : ControllerBase{
         return Ok(incapacidad);
     }
 
+    // Obtener una incapacidad por cedula COlaborador
+    [HttpGet("Colaborador/{cedula}")]
+    public async Task<IActionResult> GetIncapacidadByCedulaColaborador(long cedula){
+        var incapacidad = await _incapacidadService.GetIncapacidadByCedulaCoraborador(cedula);
+        if (incapacidad == null) return NotFound(new { message = "Incapacidad no encontrada." });
+        
+        return Ok(incapacidad);
+    }
+
+    // Obtener una incapacidad por cedula RH
+    [HttpGet("RH/{cedula}")]
+    public async Task<IActionResult> GetIncapacidadByCedulaRH(long cedula){
+        var incapacidad = await _incapacidadService.GetIncapacidadByCedulaRH(cedula);
+        if (incapacidad == null) return NotFound(new { message = "Incapacidad no encontrada." });
+        
+        return Ok(incapacidad);
+    }
+
     // Actualizar una incapacidad
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateIncapacidad(Guid id, [FromBody] Incapacidad updatedIncapacidad){
