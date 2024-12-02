@@ -1,0 +1,15 @@
+  migrator:
+    build:
+      context: .
+      dockerfile: Dockerfile2
+    container_name: sick-leave-migrator
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - postgres
+    

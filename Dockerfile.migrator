@@ -1,0 +1,18 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS migrator
+WORKDIR /src
+
+# Instala la herramienta dotnet-ef
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Copia los archivos del proyecto
+COPY ["SickLeaveAPI.csproj", "./"]
+RUN dotnet restore
+
+# Copia el resto del código
+COPY . .
+WORKDIR /src
+
+# Ejecuta migraciones
+ENTRYPOINT ["dotnet", "ef", "database", "update"]
+

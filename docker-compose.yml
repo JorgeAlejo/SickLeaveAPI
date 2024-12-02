@@ -10,12 +10,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-
+  
   migrator:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: sick-leave-migrator
+      dockerfile: Dockerfile.migrator
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - DB_HOST=postgres
@@ -25,7 +24,6 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
       - postgres
-    command: ["dotnet", "ef", "database", "update"]
 
   api:
     build: 
@@ -44,7 +42,7 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
       - postgres
-      - migrator
+    command: ["dotnet", "ef", "database", "update"]
 
 volumes:
   postgres-data:
