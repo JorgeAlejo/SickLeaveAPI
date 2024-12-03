@@ -28,6 +28,21 @@ public class UserAdminController : ControllerBase{
         return Ok(admin);
     }
 
+    //Registrar admin
+    [HttpPost]
+    public async Task<IActionResult> RegisterAdmin([FromBody] UserAdmin admin){
+        if (!ModelState.IsValid){
+            return BadRequest(ModelState);
+        }
+
+        var result = await _userAdminService.RegisterAdmin(admin);
+        if (!result){
+            return Conflict(new { message = "Ya existe un administrador con la misma cedula." });
+        }
+
+        return CreatedAtAction(nameof(GetByCedula), new { cedula = admin.Cedula }, admin);
+    }
+
     // Actualizar un administrador
     [HttpPut("{cedula}")]
     public async Task<IActionResult> UpdateAdmin(long cedula, [FromBody] UserAdmin userAdmin)

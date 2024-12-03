@@ -18,7 +18,7 @@ public class UserAdminService{
     } 
 
     //Registro de Administrador
-    /*
+    
     public async Task<bool> RegisterAdmin(UserAdmin userAdmin){
         if(await _context.UserAdmins.AnyAsync(u => u.Cedula == userAdmin.Cedula)) return false;
         //password Hashing
@@ -28,7 +28,6 @@ public class UserAdminService{
         await _context.SaveChangesAsync();
         return true;
     }
-    */
 
     //Update admin 
     public async Task<bool> UpdateUserAdmin(long cedula, UserAdmin userAdmin){

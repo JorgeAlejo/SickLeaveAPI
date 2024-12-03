@@ -17,7 +17,15 @@ builder.Services.AddDbContext<SickLeaveDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vet API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sick Leave API", Version = "v1" });
+});
+builder.Services.AddCors(options =>{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // Origen permitido
+              .AllowAnyMethod()                    // Métodos HTTP permitidos
+              .AllowAnyHeader();                   // Encabezados permitidos
+    });
 });
 builder.Services.AddControllers();
 builder.Services.AddScoped<UserAdminService>();
@@ -37,10 +45,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment()){
     app.UseSwagger();
     app.UseSwaggerUI(c => {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Vet API v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sick Leave API v1");
         c.RoutePrefix = string.Empty; // Esto hace que Swagger esté en la ruta principal 
     });
 }
+
+// Usa CORS
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
